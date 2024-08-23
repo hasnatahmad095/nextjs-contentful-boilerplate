@@ -4,7 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 
 const press = ({ HeaderData }) => {
-  console.log(HeaderData, "HeaderData");
+  // console.log(HeaderData, "HeaderData");
 
   return (
     <>

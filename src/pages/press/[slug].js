@@ -4,7 +4,7 @@ import { getHeader } from "@/src/lib/contentful/api";
 import Head from "next/head";
 
 const pressdetail = ({ post }) => {
-  console.log(post, "slug");
+  // console.log(post, "slug");
   if (!post) {
     return (
       <div>
@@ -44,7 +44,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  console.log(params, "params");
+  // console.log(params, "params");
   const post = await getPostBySlug(params.slug);
 
   return {
