@@ -16,7 +16,7 @@ const pressdetail = ({ post }) => {
   return (
     <>
       <Head>
-        <title>{post.posttitle} - Zoya</title>
+        <title>{post.posttitle}</title>
         <link rel="icon" href="/favicon.png" />
       </Head>
       <div className="w-full flex-col flex border-b-[1px] border-black banner xl:flex-row h-auto lg:h-screen">
