@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* -----------ScrollBar-Start------- */ 
+/* -----------ScrollBar-Start------- */
 ::-webkit-scrollbar {
   @apply w-0;
 }
@@ -130,4 +130,13 @@ p {
   p {
     @apply text-base font-montserrat;
   }
+}
+
+
+.overlay {
+  @apply absolute bg-black opacity-40 left-0 right-0 top-0 bottom-0 w-full h-full z-10;
+}
+
+.aboutSection .flex div {
+  width: calc(50% - 20px);
 }

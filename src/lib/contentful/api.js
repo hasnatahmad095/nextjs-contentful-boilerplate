@@ -35,6 +35,18 @@ const HEADER_FIELDS = `
   }
 `;
 
+const HOME_FIELDS = `
+      banner {
+        ${IMAGE_OR_VIDEO_FIELDS}
+      }
+      bannerText
+      aboutHeading
+      aboutDescription
+      aboutImage {
+        ${IMAGE_OR_VIDEO_FIELDS}
+      }
+`;
+
 async function fetchGraphQL(query, preview = false) {
   return fetch(
     `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}`,
@@ -42,11 +54,10 @@ async function fetchGraphQL(query, preview = false) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${
-          preview
-            ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
-            : process.env.CONTENTFUL_ACCESS_TOKEN
-        }`,
+        Authorization: `Bearer ${preview
+          ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
+          : process.env.CONTENTFUL_ACCESS_TOKEN
+          }`,
       },
       body: JSON.stringify({ query }),
     }
@@ -109,4 +120,24 @@ export const getAwards = async (isDraftMode) => {
 
 const extractOurAwards = (fetchResponse) => {
   return fetchResponse?.data?.bannerCollection?.items;
+};
+
+
+export const getHomeData = async (isDraftMode) => {
+  const homeQuery = await fetchGraphQL(
+    `query {
+      homeCollection(preview: ${isDraftMode ? "true" : "false"}) {
+        items {
+          ${HOME_FIELDS}
+        }
+      }
+    }`,
+    isDraftMode
+  );
+  // console.log(headerQuery, "Header Query Result");
+  return getHome(homeQuery);
+};
+
+const getHome = (fetchResponse) => {
+  return fetchResponse?.data?.homeCollection?.items || [];
 };
