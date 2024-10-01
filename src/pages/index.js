@@ -2,6 +2,8 @@ import React from "react";
 import { getAwards, getHomeData } from "../lib/contentful/api";
 
 export default function Index({ awards, home }) {
+  console.log(home,"home");
+  
 
   return (
     // <div>

@@ -22,7 +22,7 @@ const POST_FIELDS = `
 const HEADER_FIELDS = `
   title
   description
-  allnewsCollection(limit: 5) { 
+  allnewsCollection(limit: 5) {
     items {
       ... on Post {
         posttitle
@@ -45,18 +45,19 @@ const HOME_FIELDS = `
       aboutImage {
         ${IMAGE_OR_VIDEO_FIELDS}
       }
-        iconboxCollection {
-        items {
-      ... on thricerep {
-        title 
-        desc
-        icon {
-        ${IMAGE_OR_VIDEO_FIELDS}
-        }
-      }
-    }
-  }  
 `;
+
+// iconboxCollection(limit:5) {
+//   items {
+//      ... on thricerep {
+//      title
+//      desc
+//      icon {
+//     ${IMAGE_OR_VIDEO_FIELDS}       
+//         }
+//       }
+//     }
+//   }
 
 async function fetchGraphQL(query, preview = false) {
   return fetch(
