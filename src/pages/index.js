@@ -20,16 +20,16 @@ export default function Index({ awards, home }) {
 
       {/* Banner Section */}
 
-      <section className="Banner relative py-20 h-screen">
+      {/* <section className="Banner relative py-20 h-screen">
         <div className="overlay"></div>
         <img className="w-full h-full absolute left-0 right-0 m-auto top-0" src={home[0].banner.url} />
         <div className="container !w-full h-full flex items-end relative z-50">
           <h1 className="font-bold text-white text-[32px] md:text-[40px] lg:text-[60px]">{home[0].bannerText}</h1>
         </div>
-      </section>
+      </section> */}
 
       {/* About Section */}
-      <section className="aboutSection py-14">
+      {/* <section className="aboutSection py-14">
         <div className="container">
           <div className="flex items-center">
             <div className="pr-5">
@@ -41,9 +41,18 @@ export default function Index({ awards, home }) {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/*  */}
+      {home[0].iconboxCollection.items.map((item,k)=>{
+        return(
+          <p className="bg-red-500">
+          {item.title}
+          {item.desc}
+
+          </p>
+        )
+      })}
     </>
   );
 }

@@ -1,3 +1,6 @@
+import { list } from "postcss";
+import css from "styled-jsx/css";
+
 const IMAGE_OR_VIDEO_FIELDS = `
   title
   description
@@ -19,21 +22,21 @@ const POST_FIELDS = `
   }
 `;
 
-const HEADER_FIELDS = `
-  title
-  description
-  allnewsCollection(limit: 5) {
-    items {
-      ... on Post {
-        posttitle
-        postslug
-        postimg {
-          ${IMAGE_OR_VIDEO_FIELDS}
-        }
-      }
-    }
-  }
-`;
+// const HEADER_FIELDS = `
+//   title
+//   description
+//   allnewsCollection(limit: 5) {
+//     items {
+//       ... on Post {
+//         posttitle
+//         postslug
+//         postimg {
+//           ${IMAGE_OR_VIDEO_FIELDS}
+//         }
+//       }
+//     }
+//   }
+// `;
 
 const HOME_FIELDS = `
       banner {
@@ -45,19 +48,17 @@ const HOME_FIELDS = `
       aboutImage {
         ${IMAGE_OR_VIDEO_FIELDS}
       }
-`;
+        iconboxCollection {
+    items {
+      ... on Thricerep {
+        title 
+        desc
+        
+      }
+    }
+  }
 
-// iconboxCollection(limit:5) {
-//   items {
-//      ... on thricerep {
-//      title
-//      desc
-//      icon {
-//     ${IMAGE_OR_VIDEO_FIELDS}       
-//         }
-//       }
-//     }
-//   }
+`;
 
 async function fetchGraphQL(query, preview = false) {
   return fetch(
@@ -88,7 +89,6 @@ export const getHeader = async (isDraftMode) => {
     }`,
     isDraftMode
   );
-  // console.log(headerQuery, "Header Query Result");
   return extractOurHeader(headerQuery);
 };
 
@@ -96,23 +96,23 @@ const extractOurHeader = (fetchResponse) => {
   return fetchResponse?.data?.headerCollection?.items || [];
 };
 
-export const getPostBySlug = async (slug) => {
-  const postQuery = await fetchGraphQL(
-    `query {
-      postCollection(where: { postslug: "${slug}" }, limit: 1) {
-        items {
-          posttitle
-          postslug
-          postimg {
-            url
-            title
-          }
-        }
-      }
-    }`
-  );
-  return postQuery?.data?.postCollection?.items[0] || null;
-};
+// export const getPostBySlug = async (slug) => {
+//   const postQuery = await fetchGraphQL(
+//     `query {
+//       postCollection(where: { postslug: "${slug}" }, limit: 1) {
+//         items {
+//           posttitle
+//           postslug
+//           postimg {
+//             url
+//             title
+//           }
+//         }
+//       }
+//     }`
+//   );
+//   return postQuery?.data?.postCollection?.items[0] || null;
+// };
 
 export const getAwards = async (isDraftMode) => {
   const awardsQuery = await fetchGraphQL(
@@ -125,7 +125,6 @@ export const getAwards = async (isDraftMode) => {
     }`,
     isDraftMode
   );
-  // console.log(awardsQuery, "Awards Query Result");
   return extractOurAwards(awardsQuery);
 };
 
@@ -144,7 +143,6 @@ export const getHomeData = async (isDraftMode) => {
     }`,
     isDraftMode
   );
-  // console.log(headerQuery, "Header Query Result");
   return getHome(homeQuery);
 };
 
