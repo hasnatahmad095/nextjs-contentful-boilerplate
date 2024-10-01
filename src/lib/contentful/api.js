@@ -45,6 +45,17 @@ const HOME_FIELDS = `
       aboutImage {
         ${IMAGE_OR_VIDEO_FIELDS}
       }
+        iconboxCollection {
+        items {
+      ... on thricerep {
+        title 
+        desc
+        icon {
+        ${IMAGE_OR_VIDEO_FIELDS}
+        }
+      }
+    }
+  }  
 `;
 
 async function fetchGraphQL(query, preview = false) {
@@ -54,10 +65,11 @@ async function fetchGraphQL(query, preview = false) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${preview
-          ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
-          : process.env.CONTENTFUL_ACCESS_TOKEN
-          }`,
+        Authorization: `Bearer ${
+          preview
+            ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN
+            : process.env.CONTENTFUL_ACCESS_TOKEN
+        }`,
       },
       body: JSON.stringify({ query }),
     }
@@ -83,7 +95,6 @@ const extractOurHeader = (fetchResponse) => {
   return fetchResponse?.data?.headerCollection?.items || [];
 };
 
-
 export const getPostBySlug = async (slug) => {
   const postQuery = await fetchGraphQL(
     `query {
@@ -101,7 +112,6 @@ export const getPostBySlug = async (slug) => {
   );
   return postQuery?.data?.postCollection?.items[0] || null;
 };
-
 
 export const getAwards = async (isDraftMode) => {
   const awardsQuery = await fetchGraphQL(
@@ -121,7 +131,6 @@ export const getAwards = async (isDraftMode) => {
 const extractOurAwards = (fetchResponse) => {
   return fetchResponse?.data?.bannerCollection?.items;
 };
-
 
 export const getHomeData = async (isDraftMode) => {
   const homeQuery = await fetchGraphQL(
