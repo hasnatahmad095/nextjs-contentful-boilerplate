@@ -27,11 +27,11 @@ export default function Index({ awards, home }) {
       </section>
 
       {/* About Section */}
-      <section className="aboutSection">
+      <section className="aboutSection py-14">
         <div className="container">
-          <div className="flex">
-            <div>
-              <h2>{home[0].aboutHeading}</h2>
+          <div className="flex items-center">
+            <div className="pr-5">
+              <h2 className="font-bold text-black mb-6">{home[0].aboutHeading}</h2>
               <p>{home[0].aboutDescription}</p>
             </div>
             <div>
@@ -40,6 +40,8 @@ export default function Index({ awards, home }) {
           </div>
         </div>
       </section>
+
+      {/*  */}
     </>
   );
 }

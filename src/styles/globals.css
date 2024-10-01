@@ -58,7 +58,7 @@ h6 {
 }
 
 p {
-  @apply text-[22px] font-montserrat;
+  @apply text-[16px] font-montserrat;
 }
 
 .paragraph {
@@ -97,7 +97,7 @@ p {
   }
 
   p {
-    @apply text-[20px] font-montserrat;
+    @apply text-[16px] font-montserrat;
   }
 }
 
@@ -139,4 +139,8 @@ p {
 
 .aboutSection .flex div {
   width: calc(50% - 20px);
+}
+
+.aboutSection img {
+  @apply w-[70%] m-auto object-contain;
 }
