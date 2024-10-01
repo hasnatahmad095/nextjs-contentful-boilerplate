@@ -98,23 +98,23 @@ const extractOurHeader = (fetchResponse) => {
   return fetchResponse?.data?.headerCollection?.items || [];
 };
 
-// export const getPostBySlug = async (slug) => {
-//   const postQuery = await fetchGraphQL(
-//     `query {
-//       postCollection(where: { postslug: "${slug}" }, limit: 1) {
-//         items {
-//           posttitle
-//           postslug
-//           postimg {
-//             url
-//             title
-//           }
-//         }
-//       }
-//     }`
-//   );
-//   return postQuery?.data?.postCollection?.items[0] || null;
-// };
+export const getPostBySlug = async (slug) => {
+  const postQuery = await fetchGraphQL(
+    `query {
+      postCollection(where: { postslug: "${slug}" }, limit: 1) {
+        items {
+          posttitle
+          postslug
+          postimg {
+            url
+            title
+          }
+        }
+      }
+    }`
+  );
+  return postQuery?.data?.postCollection?.items[0] || null;
+};
 
 export const getAwards = async (isDraftMode) => {
   const awardsQuery = await fetchGraphQL(
