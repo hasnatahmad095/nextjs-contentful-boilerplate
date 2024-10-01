@@ -2,8 +2,7 @@ import React from "react";
 import { getAwards, getHomeData } from "../lib/contentful/api";
 
 export default function Index({ awards, home }) {
-  console.log(home,"home");
-  
+  console.log(home, "home");
 
   return (
     // <div>
@@ -17,7 +16,6 @@ export default function Index({ awards, home }) {
     //   })}
     // </div>
     <>
-
       {/* Banner Section */}
 
       {/* <section className="Banner relative py-20 h-screen">
@@ -44,18 +42,22 @@ export default function Index({ awards, home }) {
       </section> */}
 
       {/*  */}
-      {home[0].iconboxCollection.items.map((item,k)=>{
-        return(
-          <p className="bg-red-500">
-          {item.title}
-          {item.desc}
-
-          </p>
-        )
+      {home[0].iconboxCollection.items.map((item, k) => {
+        return (
+          <div key={k}>
+          <p className="bg-red-500">{item.title}</p>
+          <p className="bg-green-500">{item.desc}</p>
+          {/* <img className="w-[300px] h-[300px]" src={item.icon.url} alt="" /> */}
+          </div>          
+        );
       })}
     </>
   );
 }
+
+// icon {
+//   ${IMAGE_OR_VIDEO_FIELDS}
+//   }
 
 export async function getStaticProps() {
   const awards = await getAwards(false);

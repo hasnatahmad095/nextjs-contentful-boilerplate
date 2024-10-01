@@ -49,16 +49,18 @@ const HOME_FIELDS = `
         ${IMAGE_OR_VIDEO_FIELDS}
       }
         iconboxCollection {
-    items {
+       items {
       ... on Thricerep {
         title 
-        desc
-        
+        desc        
       }
     }
   }
-
 `;
+
+// icon {
+//   ${IMAGE_OR_VIDEO_FIELDS}        
+// }
 
 async function fetchGraphQL(query, preview = false) {
   return fetch(
