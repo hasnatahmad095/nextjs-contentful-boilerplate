@@ -1,19 +1,24 @@
 import React from "react";
 import { getAwards } from "../lib/contentful/api";
+import Head from "next/head";
 
 export default function Index({ awards }) {
-
   return (
-    <div>
-      {awards.map((i, idx) => {
-        return (
-          <div key={idx}>
-            <h5>{i.bannertitle}</h5>
-            <p>{i.bannerdesc}</p>
-          </div>
-        );
-      })}
-    </div>      
+    <>
+      <Head>
+        <title>Home | Next-js Contentful</title>
+      </Head>
+      <div>
+        {awards.map((i, idx) => {
+          return (
+            <div key={idx}>
+              <h5>{i.bannertitle}</h5>
+              <p>{i.bannerdesc}</p>
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 }
 

@@ -8,7 +8,7 @@ const press = ({ HeaderData }) => {
   return (
     <>
       <Head>
-        <title></title>
+        <title>Press | Next-js Contentful</title>
       </Head>
       <div className="w-full h-max bg-red-300">
         <p className="">{HeaderData[0]?.title}</p>
