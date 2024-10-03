@@ -1,6 +1,3 @@
-import { list } from "postcss";
-import css from "styled-jsx/css";
-
 const IMAGE_OR_VIDEO_FIELDS = `
   title
   description
@@ -22,45 +19,21 @@ const POST_FIELDS = `
   }
 `;
 
-// const HEADER_FIELDS = `
-//   title
-//   description
-//   allnewsCollection(limit: 5) {
-//     items {
-//       ... on Post {
-//         posttitle
-//         postslug
-//         postimg {
-//           ${IMAGE_OR_VIDEO_FIELDS}
-//         }
-//       }
-//     }
-//   }
-// `;
-
-const HOME_FIELDS = `
-      banner {
-        ${IMAGE_OR_VIDEO_FIELDS}
-      }
-      bannerText
-      aboutHeading
-      aboutDescription
-      aboutImage {
-        ${IMAGE_OR_VIDEO_FIELDS}
-      }
-        iconboxCollection {
-       items {
-      ... on Thricerep {
-        title 
-        desc        
+const HEADER_FIELDS = `
+  title
+  description
+  allnewsCollection(limit: 5) {
+    items {
+      ... on Post {
+        posttitle
+        postslug
+        postimg {
+          ${IMAGE_OR_VIDEO_FIELDS}
+        }
       }
     }
   }
 `;
-
-// icon {
-//   ${IMAGE_OR_VIDEO_FIELDS}        
-// }
 
 async function fetchGraphQL(query, preview = false) {
   return fetch(
@@ -132,22 +105,4 @@ export const getAwards = async (isDraftMode) => {
 
 const extractOurAwards = (fetchResponse) => {
   return fetchResponse?.data?.bannerCollection?.items;
-};
-
-export const getHomeData = async (isDraftMode) => {
-  const homeQuery = await fetchGraphQL(
-    `query {
-      homeCollection(preview: ${isDraftMode ? "true" : "false"}) {
-        items {
-          ${HOME_FIELDS}
-        }
-      }
-    }`,
-    isDraftMode
-  );
-  return getHome(homeQuery);
-};
-
-const getHome = (fetchResponse) => {
-  return fetchResponse?.data?.homeCollection?.items || [];
 };
