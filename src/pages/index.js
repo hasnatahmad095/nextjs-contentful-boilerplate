@@ -8,7 +8,7 @@ export default function Index({ awards }) {
       {awards.map((i, idx) => {
         return (
           <div key={idx}>
-            <h2>{i.bannertitle}</h2>
+            <h5>{i.bannertitle}</h5>
             <p>{i.bannerdesc}</p>
           </div>
         );
