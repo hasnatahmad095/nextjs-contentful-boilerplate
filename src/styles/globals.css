@@ -1,6 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --font-montserrat: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --color-theme-pink: #ec145b;
+}
 
 /* -----------ScrollBar-Start------- */
 ::-webkit-scrollbar {
@@ -12,11 +15,11 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-themePink;
+  @apply bg-theme-pink;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-themePink;
+  @apply bg-theme-pink;
 }
 
 /* -----------ScrollBar-End------- */
@@ -30,39 +33,39 @@ body {
 }
 
 .container {
-  @apply max-w-[1300px] w-full m-auto px-4;
+  @apply m-auto w-full max-w-[1300px] px-4;
 }
 
 h1 {
-  @apply text-[56px] leading-[1.2] font-medium font-montserrat;
+  @apply font-montserrat text-[56px] leading-[1.2] font-medium;
 }
 
 h2 {
-  @apply text-[52px] leading-[1.2] font-medium font-montserrat;
+  @apply font-montserrat text-[52px] leading-[1.2] font-medium;
 }
 
 h3 {
-  @apply text-[48px] leading-[1.2] font-medium font-montserrat;
+  @apply font-montserrat text-[48px] leading-[1.2] font-medium;
 }
 
 h4 {
-  @apply text-[38px] leading-[1.2] font-medium font-montserrat;
+  @apply font-montserrat text-[38px] leading-[1.2] font-medium;
 }
 
 h5 {
-  @apply text-[32px] leading-[1.2] font-medium font-montserrat;
+  @apply font-montserrat text-[32px] leading-[1.2] font-medium;
 }
 
 h6 {
-  @apply text-[24px] leading-[1.2] font-medium font-montserrat;
+  @apply font-montserrat text-[24px] leading-[1.2] font-medium;
 }
 
 p {
-  @apply text-[16px] font-montserrat;
+  @apply font-montserrat text-[16px];
 }
 
 .paragraph {
-  @apply text-lg font-montserrat;
+  @apply font-montserrat text-lg;
 }
 
 /* ------------Media Queries-Start-----------*/
@@ -73,68 +76,67 @@ p {
   }
 
   h1 {
-    @apply text-[52px] leading-[1.2] font-medium font-montserrat;
+    @apply font-montserrat text-[52px] leading-[1.2] font-medium;
   }
 
   h2 {
-    @apply text-[46px] leading-[1.2] font-medium font-montserrat;
+    @apply font-montserrat text-[46px] leading-[1.2] font-medium;
   }
 
   h3 {
-    @apply text-[44px] leading-[1.2] font-medium font-montserrat;
+    @apply font-montserrat text-[44px] leading-[1.2] font-medium;
   }
 
   h4 {
-    @apply text-[34px] leading-[1.2] font-medium font-montserrat;
+    @apply font-montserrat text-[34px] leading-[1.2] font-medium;
   }
 
   h5 {
-    @apply text-[28px] leading-[1.2] font-medium font-montserrat;
+    @apply font-montserrat text-[28px] leading-[1.2] font-medium;
   }
 
   h6 {
-    @apply text-[22px] leading-[1.2] font-medium font-montserrat;
+    @apply font-montserrat text-[22px] leading-[1.2] font-medium;
   }
 
   p {
-    @apply text-[16px] font-montserrat;
+    @apply font-montserrat text-[16px];
   }
 }
 
 /* ---------------Mobile-Media-Queries--------------- */
 @media (max-width: 767px) {
   h1 {
-    @apply text-[40px] leading-[1.2] font-medium font-montserrat;
+    @apply font-montserrat text-[40px] leading-[1.2] font-medium;
   }
 
   h2 {
-    @apply text-[32px] leading-[1.2] font-medium font-montserrat;
+    @apply font-montserrat text-[32px] leading-[1.2] font-medium;
   }
 
   h3 {
-    @apply text-[28px] leading-[1.2] font-medium font-montserrat;
+    @apply font-montserrat text-[28px] leading-[1.2] font-medium;
   }
 
   h4 {
-    @apply text-[24px] leading-[1.2] font-medium font-montserrat;
+    @apply font-montserrat text-[24px] leading-[1.2] font-medium;
   }
 
   h5 {
-    @apply text-[22px] leading-[1.2] font-medium font-montserrat;
+    @apply font-montserrat text-[22px] leading-[1.2] font-medium;
   }
 
   h6 {
-    @apply text-[20px] leading-[1.2] font-medium font-montserrat;
+    @apply font-montserrat text-[20px] leading-[1.2] font-medium;
   }
 
   p {
-    @apply text-base font-montserrat;
+    @apply font-montserrat text-base;
   }
 }
 
-
 .overlay {
-  @apply absolute bg-black opacity-40 left-0 right-0 top-0 bottom-0 w-full h-full z-10;
+  @apply absolute top-0 right-0 bottom-0 left-0 z-10 h-full w-full bg-black opacity-40;
 }
 
 .aboutSection .flex div {
@@ -142,5 +144,5 @@ p {
 }
 
 .aboutSection img {
-  @apply w-[70%] m-auto object-contain;
+  @apply m-auto w-[70%] object-contain;
 }
