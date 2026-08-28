@@ -117,6 +117,17 @@ and renders before you connect a real space.
 - **No data shown**: Ensure content exists in your space and the field IDs match
   the queries in `src/lib/contentful/api.ts`.
 
+## Contributing
+
+Issues and pull requests are welcome. If you build something useful on top of
+this starter, feel free to open a PR so others can benefit too.
+
 ## License
 
-MIT
+Released under the [MIT License](LICENSE) — free to use in personal and
+commercial projects.
+
+---
+
+Made for the Next.js + Contentful community. If this starter saved you time,
+consider giving the repo a star to help others find it.
