@@ -1,47 +1,49 @@
 # Next.js + Contentful Headless CMS Boilerplate
 
-A production‑ready starter to build content‑driven websites using Next.js and Contentful.
+A production-ready starter for building content-driven websites with Next.js and Contentful.
 
 ## Tech stack
-- **Next.js 14** (React 18)
-- **Tailwind CSS** with PostCSS/Autoprefixer
-- **ESLint** + **Prettier** (with Tailwind plugin)
-- Useful UI libs: **AOS**, **Swiper**, **react-icons**
+
+- **Next.js 16** (Pages Router) with **React 19** and **Turbopack**
+- **TypeScript** (strict mode)
+- **Tailwind CSS 4** (CSS-first config)
+- **ESLint 9** (flat config) + **Prettier** (with Tailwind class sorting)
+- **Contentful GraphQL** content delivery, with Incremental Static Regeneration (ISR)
 
 ## Prerequisites
-- Node.js 18.17+ (LTS recommended)
-- A Contentful space with Content Delivery and (optionally) Preview API tokens
+
+- Node.js 20.9+ (LTS recommended — see `.nvmrc`)
+- A Contentful space with a Content Delivery API token (Preview token optional)
 
 ## Getting started
-1) Install dependencies
+
+1. Install dependencies
 
 ```bash
 npm install
 ```
 
-2) Configure environment variables
+2. Configure environment variables
 
-Create and fill `.env` (or `.env.local` for local only):
+Copy the example file and fill in your Contentful credentials:
+
+```bash
+cp .env.example .env.local
+```
 
 ```env
 CONTENTFUL_SPACE_ID=""
-CONTENTFUL_ACCESS_TOKEN=""                 # CDA (delivery) token
-CONTENTFUL_PREVIEW_ACCESS_TOKEN=""         # CPA (preview) token, optional
-CONTENTFUL_PREVIEW_SECRET=""               # Used for draft/preview routes (if enabled)
-CONTENTFUL_REVALIDATE_SECRET=""            # Used for on-demand ISR (if enabled)
+CONTENTFUL_ACCESS_TOKEN=""             # CDA (delivery) token
+CONTENTFUL_PREVIEW_ACCESS_TOKEN=""     # CPA (preview) token — optional
+CONTENTFUL_PREVIEW_SECRET=""           # Guards draft/preview routes — optional
+CONTENTFUL_REVALIDATE_SECRET=""        # Used for on-demand ISR — optional
 ```
 
-3) Allow Contentful image domain (important)
+> The Contentful image CDN (`images.ctfassets.net`) is already allow-listed in
+> `next.config.ts`, so `next/image` works out of the box. Add any other image
+> hosts to `images.remotePatterns` there.
 
-Update `next.config.mjs` to include Contentful Images CDN so Next Image can load assets:
-
-```js
-images: {
-  domains: ["images.ctfassets.net"],
-},
-```
-
-4) Run the app
+3. Run the app
 
 ```bash
 npm run dev
@@ -50,15 +52,19 @@ npm run dev
 Visit http://localhost:3000
 
 ## Scripts
-- `npm run dev` — Start Next.js in development
+
+- `npm run dev` — Start the dev server (Turbopack)
 - `npm run build` — Production build
-- `npm run start` — Start production server
+- `npm run start` — Start the production server
 - `npm run lint` — Lint with ESLint
+- `npm run format` — Format the codebase with Prettier
+- `npm run typecheck` — Type-check without emitting
 
 ## Contentful setup
-This starter uses Contentful GraphQL API. Provide your space ID and tokens as shown above.
 
-The sample queries (see `src/lib/contentful/api.js`) expect the following example models/fields in your space. You can adjust code or model IDs to match your setup.
+This starter uses the Contentful GraphQL API. The sample queries (see
+[`src/lib/contentful/api.ts`](src/lib/contentful/api.ts)) expect the following
+example models/fields. Adjust the code or model IDs to match your space.
 
 - **Post**
   - `posttitle` (Text)
@@ -70,30 +76,58 @@ The sample queries (see `src/lib/contentful/api.js`) expect the following exampl
   - `description` (Text)
   - `allnews` (Reference, list of Post)
 
-- **Banner** (used for awards section in code)
+- **Banner** (used for the awards section in code)
   - `bannertitle` (Text)
   - `bannerdesc` (Text)
 
-You can rename fields, but then update the queries in `src/lib/contentful/api.js` accordingly.
+The data layer fails soft: if credentials are missing or a request fails, the
+helpers return empty results instead of throwing, so the project still builds
+and renders before you connect a real space.
 
-## Project structure highlights
-- `src/lib/contentful/api.js` — GraphQL helpers to fetch entries (delivery or preview)
-- `next.config.mjs` — Next.js config, including images domain allowlist
-- `tailwind.config.js` / `postcss.config.js` — Styling pipeline
+## Project structure
+
+- `src/pages/` — Routes (Pages Router)
+- `src/components/` — Shared components (e.g. `Layout.tsx`)
+- `src/lib/contentful/api.ts` — Typed GraphQL helpers (delivery or preview)
+- `src/styles/globals.css` — Tailwind entry point and theme (`@theme`)
+- `src/fonts/` — Local Montserrat font faces
+- `next.config.ts` — Next.js config, including the image host allow-list
+- `eslint.config.mjs` / `.prettierrc.json` — Lint & format config
 
 ## Draft mode and revalidation
-- If you plan to use draft/preview, ensure `CONTENTFUL_PREVIEW_ACCESS_TOKEN` and `CONTENTFUL_PREVIEW_SECRET` are set and that your preview routes read that secret.
-- If you use on‑demand ISR, set `CONTENTFUL_REVALIDATE_SECRET` and configure a secure revalidation endpoint and Contentful webhook. If you don’t use ISR, you can ignore this.
+
+- For draft/preview, set `CONTENTFUL_PREVIEW_ACCESS_TOKEN` and
+  `CONTENTFUL_PREVIEW_SECRET`, and have your preview routes read that secret.
+- For on-demand ISR, set `CONTENTFUL_REVALIDATE_SECRET`, expose a secure
+  revalidation endpoint, and point a Contentful webhook at it. Pages already use
+  `revalidate: 60` for time-based ISR. If you don't use ISR, you can ignore this.
 
 ## Deployment
-- Recommended: Vercel. Add all environment variables to your project on Vercel.
-- Ensure `images.domains` includes any external image hosts (e.g., `images.ctfassets.net`).
+
+- Recommended: Vercel. Add all environment variables to your project settings.
+- Ensure `images.remotePatterns` in `next.config.ts` includes any external image
+  hosts you use.
 
 ## Troubleshooting
-- **Images not loading**: Add `images.ctfassets.net` to `next.config.mjs` `images.domains`.
-- **401/403 from Contentful**: Verify tokens and that you’re using the correct API (Delivery vs Preview).
-- **No data shown**: Ensure content exists in your space and the field IDs match the queries.
+
+- **Images not loading**: Confirm the host is listed in `images.remotePatterns`
+  in `next.config.ts`.
+- **401/403 from Contentful**: Verify your tokens and that you're using the
+  correct API (Delivery vs Preview).
+- **No data shown**: Ensure content exists in your space and the field IDs match
+  the queries in `src/lib/contentful/api.ts`.
+
+## Contributing
+
+Issues and pull requests are welcome. If you build something useful on top of
+this starter, feel free to open a PR so others can benefit too.
 
 ## License
-MIT
 
+Released under the [MIT License](LICENSE) — free to use in personal and
+commercial projects.
+
+---
+
+Made for the Next.js + Contentful community. If this starter saved you time,
+consider giving the repo a star to help others find it.
