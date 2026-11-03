@@ -127,7 +127,8 @@ this starter, feel free to open a PR so others can benefit too.
 Released under the [MIT License](LICENSE) — free to use in personal and
 commercial projects.
 
----
+## Author
 
-Made for the Next.js + Contentful community. If this starter saved you time,
-consider giving the repo a star to help others find it.
+Built and maintained by [Hasnat Ahmad](https://www.devhasnatahmad.com/). Need help with a project? [Get in touch](https://www.devhasnatahmad.com/contact).
+
+If this project saved you time, please give it a ⭐ on GitHub.
